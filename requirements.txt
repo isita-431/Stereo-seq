@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+streamlit
+pillow
+=======
+streamlit
+pillow
+>>>>>>> 402b8cb1a755d0e47ae9faeae2e0144d0356e98d
+pandas
