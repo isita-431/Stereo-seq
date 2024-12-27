@@ -62,11 +62,17 @@ def main():
     st.write(f"- **Ligand**: {ligand}")
     st.write(f"- **Receptor**: {receptor}")
     st.write(f"- **Distance**: {distance} microns")
-
-    # Construct the file path for the histogram
+    
     base_dir = os.path.dirname(__file__)
     histograms_dir = os.path.join(base_dir, "histograms")
     interaction_dir = os.path.join(base_dir, "new_figures")
+
+    ligand_figures = os.path.join(base_dir, "ligand_figures")
+    receptor_figures = os.path.join(base_dir, "receptor_figures")
+
+    ligand_expressing_figures = os.path.join(base_dir, "ligand_expressing_cells_RECA")
+    receptor_expressing_figures = os.path.join(base_dir, "receptor_expressing_cells_LECA")
+
     file_name = f"{pathway}_{receptor}_{ligand}_distance_{distance}.png"
     file_path = os.path.join(histograms_dir, file_name)
     file_name2 = f"{pathway}_{ligand}_{receptor}_distance_{distance}.png"
@@ -77,9 +83,28 @@ def main():
     
     file_name4 = f"{receptor}-{ligand}_{distance}_Plot1_rl.png"
     file_path4 = os.path.join(interaction_dir, file_name4)
+    ##################
+
+    file_name5 = f"{pathway}_{ligand}.png"
+    file_path5 = os.path.join(ligand_figures, file_name5)
+
+    file_name6 = f"{pathway}_{receptor}.png"
+    file_path6 = os.path.join(receptor_figures, file_name6)
+
+    file_name7 = f"{pathway}_{ligand}_{receptor}_r{distance}.png"
+    file_path7 = os.path.join(ligand_expressing_figures, file_name7)
+
+    file_name8 = f"{pathway}_{receptor}_{ligand}_r{distance}.png"
+    file_path8 = os.path.join(receptor_expressing_figures, file_name8)
     
 
     # Check if the file exists and display the plot
+    if os.path.exists(file_path5):
+        st.write("## Ligand PLot")
+        image = Image.open(file_path5)
+        st.write(f' Ligand plot')
+        st.image(image, caption=file_name, use_column_width=True)
+    
     if os.path.exists(file_path):
         st.write("## Histogram")
         image = Image.open(file_path)
@@ -95,6 +120,16 @@ def main():
         st.image(image, caption=file_name, use_column_width=True)
     else:
         st.write("No interaction available for the selected parameters.")
+    ###################
+    if os.path.exists(file_path7):
+        st.write("## Ligand expressing cells RECA PLot")
+        image = Image.open(file_path7)
+        st.write(f' Ligand - receptor {ligand}_{receptor} RECA plot')
+        st.image(image, caption=file_name, use_column_width=True)
+    else:
+        st.write("No interaction available for the selected parameters.")
+
+    
     
     st.write("## Metrics")
     filtered_metrics = metrics_df[(metrics_df["Ligand"] == ligand) & 
@@ -107,7 +142,13 @@ def main():
     else:
         st.write("No metrics available for the selected parameters.")
 
-        
+
+    if os.path.exists(file_path6):
+        st.write("## Ligand PLot")
+        image = Image.open(file_path6)
+        st.write(f' Ligand plot')
+        st.image(image, caption=file_name, use_column_width=True)
+
     if os.path.exists(file_path2):
         st.write("## Histogram")
         image = Image.open(file_path2)
@@ -123,6 +164,16 @@ def main():
         st.image(image, caption=file_name, use_column_width=True)
     else:
         st.write("No interaction available for the selected parameters.")
+
+    ##########################
+    if os.path.exists(file_path8):
+        st.write("## Receptor expressing cells LECA PLot")
+        image = Image.open(file_path8)
+        st.write(f' Receptor - Ligand {ligand}_{receptor} LECA plot')
+        st.image(image, caption=file_name, use_column_width=True)
+    else:
+        st.write("No interaction available for the selected parameters.")
+
     
 
     filtered_metrics2 = metrics_df2[(metrics_df2["ligand"] == ligand) & 
