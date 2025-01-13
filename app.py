@@ -39,6 +39,22 @@ def main():
         st.error("Metrics file not found. Please ensure 'ligand_receptor_metrics.csv' is in the app directory.")
         return
     
+    metrics_file3 = os.path.join(base_dir, "heart_only_ligand_receptor_metrics.csv")
+
+    if os.path.exists(metrics_file3):
+        metrics_df3 = pd.read_csv(metrics_file3)
+    else:
+        st.error("Metrics file not found. Please ensure 'ligand_receptor_metrics.csv' is in the app directory.")
+        return
+
+    metrics_file4 = os.path.join(base_dir, "heart_only_receptor_ligand_metrics.csv")
+
+    if os.path.exists(metrics_file4):
+        metrics_df4 = pd.read_csv(metrics_file4)
+    else:
+        st.error("Metrics file not found. Please ensure 'ligand_receptor_metrics.csv' is in the app directory.")
+        return
+    
 
 
     # App title
@@ -67,11 +83,17 @@ def main():
     histograms_dir = os.path.join(base_dir, "histograms")
     interaction_dir = os.path.join(base_dir, "new_figures")
 
-    ligand_figures = os.path.join(base_dir, "ligand_figures")
+    ligand_figures = os.path.join(base_dir, "ligand_figures_only_heart")
     receptor_figures = os.path.join(base_dir, "receptor_figures")
+
+    ligand_figures2 = os.path.join(base_dir, "ligand_figures")
+    receptor_figures2 = os.path.join(base_dir, "receptor_figures_only_heart")
 
     ligand_expressing_figures = os.path.join(base_dir, "ligand_expressing_cells_RECA")
     receptor_expressing_figures = os.path.join(base_dir, "receptor_expressing_cells_LECA")
+
+    ligand_expressing_figures_only_heart = os.path.join(base_dir, "ligand_expressing_cells_RECA_only_heart")
+    receptor_expressing_figures_only_heart = os.path.join(base_dir, "receptor_expressing_cells_LECA_only_heart")
 
     file_name = f"{pathway}_{receptor}_{ligand}_distance_{distance}.png"
     file_path = os.path.join(histograms_dir, file_name)
@@ -96,7 +118,26 @@ def main():
 
     file_name8 = f"{pathway}_{receptor}_{ligand}_r{distance}.png"
     file_path8 = os.path.join(receptor_expressing_figures, file_name8)
+
+    file_name9 = f"Pathway 1_{ligand}_cell_count_with_boundary.png"
+    file_path9 = os.path.join(ligand_figures2, file_name9)
+
+    file_name11 = f"Pathway 1_{ligand}_expression_closeup.png"
+    file_path11 = os.path.join(ligand_figures2, file_name11)
+
+    file_name10 = f"Pathway 1_{receptor}_cell_count_with_boundary"
+    file_path10 = os.path.join(receptor_figures2, file_name10)
+
+    file_name12 = f"Pathway 1_{receptor}_expression_closeup.png"
+    file_path12 = os.path.join(receptor_figures2, file_name12)
+
+    file_name13 = f"Pathway 1_{ligand}_{receptor}_r25_HEART_ONLY_expr.png"
+    file_path13 = os.path.join(ligand_expressing_figures_only_heart, file_name13)
+
+    file_name14 = f"Pathway 1_{receptor}_{ligand}_r25_HEART_ONLY_expr.png"
+    file_path14 = os.path.join(receptor_expressing_figures_only_heart, file_name14)
     
+
 
     # Check if the file exists and display the plot
     if os.path.exists(file_path5):
@@ -104,6 +145,18 @@ def main():
         image = Image.open(file_path5)
         st.write(f' Ligand plot')
         st.image(image, caption=file_name, use_column_width=True)
+
+    if os.path.exists(file_path9):
+        st.write("### Ligand PLot heart 1 boundary")
+        image = Image.open(file_path9)
+        st.write(f' Ligand plot')
+        st.image(image, caption=file_name9, use_column_width=True)
+    
+    if os.path.exists(file_path11):
+        st.write("### Ligand PLot heart 2")
+        image = Image.open(file_path11)
+        st.write(f' Ligand plot')
+        st.image(image, caption=file_name11, use_column_width=True)
     
     if os.path.exists(file_path):
         st.write("## Histogram")
@@ -129,7 +182,14 @@ def main():
     else:
         st.write("No interaction available for the selected parameters.")
 
-    
+    if os.path.exists(file_path13):
+        st.write("## Ligand expressing cells RECA PLot only heart cells")
+        image = Image.open(file_path13)
+        st.write(f' Ligand - receptor {ligand}_{receptor} RECA plot')
+        st.image(image, caption=file_name13, use_column_width=True)
+    else:
+        st.write("No interaction available for the selected parameters.")
+
     
     st.write("## Metrics")
     filtered_metrics = metrics_df[(metrics_df["Ligand"] == ligand) & 
@@ -141,13 +201,34 @@ def main():
         st.dataframe(filtered_metrics)
     else:
         st.write("No metrics available for the selected parameters.")
+    
+    st.write("## Metrics for heart")
+    filtered_metrics2 = metrics_df3[(metrics_df3["Ligand"] == ligand) & 
+                                  (metrics_df3["Receptor"] == receptor) & 
+                                  (metrics_df3["Pathway Name"] == pathway) & 
+                                  (metrics_df3["Distance"] == distance)]
+
+    if not filtered_metrics2.empty:
+        st.dataframe(filtered_metrics2)
+    else:
+        st.write("No metrics available for the selected parameters.")
 
 
     if os.path.exists(file_path6):
-        st.write("## Ligand PLot")
+        st.write("## Receptor PLot")
         image = Image.open(file_path6)
-        st.write(f' Ligand plot')
-        st.image(image, caption=file_name, use_column_width=True)
+        st.write(f' Receptor plot')
+        st.image(image, caption=file_name6, use_column_width=True)
+    
+    if os.path.exists(file_path10):
+        st.write("### Receptor PLot heart 1 boundary")
+        image = Image.open(file_path10)
+        st.image(image, caption=file_name10, use_column_width=True)
+    
+    if os.path.exists(file_path12):
+        st.write("### Ligand PLot heart 2")
+        image = Image.open(file_path12)
+        st.image(image, caption=file_name12, use_column_width=True)
 
     if os.path.exists(file_path2):
         st.write("## Histogram")
@@ -174,6 +255,14 @@ def main():
     else:
         st.write("No interaction available for the selected parameters.")
 
+    if os.path.exists(file_path14):
+        st.write("## Receptor expressing cells LECA PLot only heart cells")
+        image = Image.open(file_path14)
+        st.write(f' Receptor - Ligand {ligand}_{receptor} RECA plot')
+        st.image(image, caption=file_name14, use_column_width=True)
+    else:
+        st.write("No interaction available for the selected parameters.")
+
     
 
     filtered_metrics2 = metrics_df2[(metrics_df2["ligand"] == ligand) & 
@@ -184,6 +273,17 @@ def main():
     st.write("## Metrics")
     if not filtered_metrics2.empty:
         st.dataframe(filtered_metrics2)
+    else:
+        st.write("No metrics available for the selected parameters.")
+    
+    st.write("## Metrics for heart")
+    filtered_metrics4 = metrics_df4[(metrics_df4["Ligand"] == receptor) & 
+                                  (metrics_df4["Receptor"] == ligand) & 
+                                  (metrics_df4["Pathway Name"] == pathway) & 
+                                  (metrics_df4["Distance"] == distance)]
+
+    if not filtered_metrics4.empty:
+        st.dataframe(filtered_metrics4)
     else:
         st.write("No metrics available for the selected parameters.")
 
