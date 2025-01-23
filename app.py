@@ -83,10 +83,10 @@ def main():
     histograms_dir = os.path.join(base_dir, "histograms")
     interaction_dir = os.path.join(base_dir, "new_figures")
 
-    ligand_figures = os.path.join(base_dir, "ligand_figures_only_heart")
+    ligand_figures2 = os.path.join(base_dir, "ligand_figures_only_heart")
     receptor_figures = os.path.join(base_dir, "receptor_figures")
 
-    ligand_figures2 = os.path.join(base_dir, "ligand_figures")
+    ligand_figures = os.path.join(base_dir, "ligand_figures")
     receptor_figures2 = os.path.join(base_dir, "receptor_figures_only_heart")
 
     ligand_expressing_figures = os.path.join(base_dir, "ligand_expressing_cells_RECA")
@@ -119,22 +119,22 @@ def main():
     file_name8 = f"{pathway}_{receptor}_{ligand}_r{distance}.png"
     file_path8 = os.path.join(receptor_expressing_figures, file_name8)
 
-    file_name9 = f"Pathway 1_{ligand}_cell_count_with_boundary.png"
+    file_name9 = f"{pathway}_{ligand}_cell_count_with_boundary.png"
     file_path9 = os.path.join(ligand_figures2, file_name9)
 
-    file_name11 = f"Pathway 1_{ligand}_expression_closeup.png"
+    file_name11 = f"{pathway}_{ligand}_expression_closeup.png"
     file_path11 = os.path.join(ligand_figures2, file_name11)
 
-    file_name10 = f"Pathway 1_{receptor}_cell_count_with_boundary"
+    file_name10 = f"{pathway}_{receptor}_cell_count_with_boundary.png"
     file_path10 = os.path.join(receptor_figures2, file_name10)
 
-    file_name12 = f"Pathway 1_{receptor}_expression_closeup.png"
+    file_name12 = f"{pathway}_{receptor}_expression_closeup.png"
     file_path12 = os.path.join(receptor_figures2, file_name12)
 
-    file_name13 = f"Pathway 1_{ligand}_{receptor}_r25_HEART_ONLY_expr.png"
+    file_name13 = f"{pathway}_{ligand}_{receptor}_r{distance}_HEART_ONLY_expr.png"
     file_path13 = os.path.join(ligand_expressing_figures_only_heart, file_name13)
 
-    file_name14 = f"Pathway 1_{receptor}_{ligand}_r25_HEART_ONLY_expr.png"
+    file_name14 = f"{pathway}_{receptor}_{ligand}_r{distance}_HEART_ONLY_expr.png"
     file_path14 = os.path.join(receptor_expressing_figures_only_heart, file_name14)
     
 
@@ -226,7 +226,7 @@ def main():
         st.image(image, caption=file_name10, use_column_width=True)
     
     if os.path.exists(file_path12):
-        st.write("### Ligand PLot heart 2")
+        st.write("### Receptor Plot heart 2")
         image = Image.open(file_path12)
         st.image(image, caption=file_name12, use_column_width=True)
 
