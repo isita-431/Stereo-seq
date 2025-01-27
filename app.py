@@ -119,13 +119,13 @@ def main():
     file_name8 = f"{pathway}_{receptor}_{ligand}_r{distance}.png"
     file_path8 = os.path.join(receptor_expressing_figures, file_name8)
 
-    file_name9 = f"{pathway}_{ligand}_cell_count_with_boundary.png"
+    file_name9 = f"{pathway}_{ligand}_expression_with_boundary.png"
     file_path9 = os.path.join(ligand_figures2, file_name9)
 
     file_name11 = f"{pathway}_{ligand}_expression_closeup.png"
     file_path11 = os.path.join(ligand_figures2, file_name11)
 
-    file_name10 = f"{pathway}_{receptor}_cell_count_with_boundary.png"
+    file_name10 = f"{pathway}_{receptor}_expression_with_boundary.png"
     file_path10 = os.path.join(receptor_figures2, file_name10)
 
     file_name12 = f"{pathway}_{receptor}_expression_closeup.png"
